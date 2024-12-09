@@ -1,12 +1,10 @@
 <?php
 session_start();
-require 'database.php'; // Ensure this connects to your database
+require 'database.php';
 
-// Get the room ID from the URL
 $roomId = $_GET['id'] ?? null;
 
 if ($roomId) {
-    // Fetch room details based on the room ID
     $sql = "SELECT id, name, capacity, features, status FROM rooms WHERE id = :id";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(['id' => $roomId]);
@@ -28,14 +26,14 @@ if ($roomId) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Room Details - <?php echo htmlspecialchars($room['name']); ?></title>
-    <link rel="stylesheet" href="stylish.css"> <!-- Ensure stylish.css exists -->
+    <link rel="stylesheet" href="stylish.css"> 
 </head>
 <body>
     <div class="container">
         <h1>Room Details</h1>
         
         <h2><?php echo htmlspecialchars($room['name']); ?></h2>
-        <p><strong>Room Number:</strong> <?php echo str_pad($room['id'], 4, '0', STR_PAD_LEFT); ?></p> <!-- Display formatted room number -->
+        <p><strong>Room Number:</strong> <?php echo str_pad($room['id'], 4, '0', STR_PAD_LEFT); ?></p> 
         <p><strong>Capacity:</strong> <?php echo htmlspecialchars($room['capacity']); ?></p>
         <p><strong>Features:</strong> <?php echo htmlspecialchars($room['features']); ?></p>
         <p><strong>Status:</strong> <?php echo htmlspecialchars($room['status']); ?></p>

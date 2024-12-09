@@ -2,7 +2,6 @@
 session_start();
 require 'database.php';
 
-// Get the room ID from the URL
 $roomId = $_GET['id'] ?? null;
 
 if (!$roomId) {
@@ -10,7 +9,6 @@ if (!$roomId) {
     exit; 
 }
 
-// Fetch room details based on the room ID
 $sql = "SELECT id, name, capacity, features, status FROM rooms WHERE id = :id";
 $stmt = $pdo->prepare($sql);
 $stmt->execute(['id' => $roomId]);
@@ -22,7 +20,7 @@ if (!$room) {
 }
 
 $isAvailable = ($room['status'] === 'Available');
-$successMessage = ""; // Initialize success message variable
+$successMessage = ""; 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = trim($_POST['name']);
@@ -31,22 +29,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $specialRequests = trim($_POST['special_requests']);
     $userId = $_SESSION['user_id'] ?? null;
 
-    // Validate the reservation time
     $startDateTime = new DateTime($reservationTime);
     $endDateTime = new DateTime($endTime);
     
-    // Calculate the reservation duration
     $duration = $endDateTime->diff($startDateTime);
     
-    // Check if the reservation duration exceeds 5 hours
     if ($duration->h > 5 || ($duration->h === 5 && $duration->i > 0)) {
         echo "<p class='alert error'>Reservation cannot exceed 5 hours.</p>";
     }
-    // Check if the reservation is on a Friday or Saturday
+    
     elseif ($startDateTime->format('N') >= 5) { // 5 = Friday, 6 = Saturday
         echo "<p class='alert error'>Reservations cannot be made on Fridays or Saturdays.</p>";
     }
-    // Check for conflicting reservations
+    
     else {
         $conflictSql = "SELECT * FROM reservations WHERE room_id = :room_id AND (
             (start_time < :end_time AND end_time > :reservation_time)
@@ -62,12 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($conflict) {
             echo "<p class='alert error'>This room is already booked during your selected time. Please choose a different time.</p>";
         } elseif ($userId && !empty($name) && !empty($reservationTime) && !empty($endTime)) {
-            // Update room status to Not Available
+            
             $updateStatusSql = "UPDATE rooms SET status = 'Not Available' WHERE id = :room_id";
             $updateStmt = $pdo->prepare($updateStatusSql);
             $updateStmt->execute(['room_id' => $roomId]);
 
-            // Insert new reservation
             $insertSql = "INSERT INTO reservations (user_id, room_id, start_time, end_time, special_requests, reservation_time, name) VALUES (:user_id, :room_id, :start_time, :end_time, :special_requests, :reservation_time, :name)";
             
             try {
@@ -82,7 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     'name' => $name
                 ]);
 
-                // Set success message
                 $successMessage = "Reservation successful for {$room['name']} from {$reservationTime} to {$endTime}.";
             } catch (PDOException $e) {
                 echo "<p class='alert error'>Error: " . htmlspecialchars($e->getMessage()) . "</p>";
@@ -103,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            background: linear-gradient(to bottom right, #f0f8ff, #e6f7ff); /* Gradient background */
+            background: linear-gradient(to bottom right, #f0f8ff, #e6f7ff); 
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
@@ -138,10 +131,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         input[type="text"]:focus,
         input[type="datetime-local"]:focus,
         textarea:focus {
-            border-color: #007bff; /* Highlight border on focus */
+            border-color: #007bff; 
         }
         button {
-            background-color: #007bff; /* Button color */
+            background-color: #007bff; 
             color: white;
             padding: 10px 15px;
             border: none;
@@ -150,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             width: 100%;
         }
         button:hover {
-            background-color: #0056b3; /* Darker shade on hover */
+            background-color: #0056b3; 
         }
         .alert {
             margin: 10px 0;

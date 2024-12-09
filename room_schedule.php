@@ -17,7 +17,7 @@ $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #eef2f5; /* Light gray background */
+            background-color: #eef2f5; 
             margin: 0;
             padding: 20px;
         }
@@ -26,7 +26,7 @@ $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background-color: #d3d3d3; /* Light gray background for header */
+            background-color: #d3d3d3; 
             padding: 10px 20px;
             border-radius: 8px;
         }
@@ -35,14 +35,14 @@ $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
             margin: 0;
             text-align: center;
             color: #333;
-            flex-grow: 1; /* Allow title to take available space */
+            flex-grow: 1; 
         }
 
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
-            background-color: white; /* White background for the table */
+            background-color: white; 
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -55,18 +55,18 @@ $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
         th {
-            background-color: #0056b3; /* Darker blue for the header */
+            background-color: #0056b3; 
             color: white;
         }
 
         tr:hover {
-            background-color: #f1f1f1; /* Light gray on hover */
+            background-color: #f1f1f1; 
         }
 
         .button {
             display: inline-block;
             padding: 10px 15px;
-            background-color: #28a745; /* Green button */
+            background-color: #28a745; 
             color: white;
             text-decoration: none;
             border-radius: 4px;
@@ -75,7 +75,7 @@ $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
             transition: background-color 0.3s;
         }
         .button:hover {
-            background-color: #218838; /* Darker green on hover */
+            background-color: #218838; 
         }
 
         .no-rooms {

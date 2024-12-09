@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'database.php'; // Ensure this connects to your database
+require 'database.php';
 
 $userId = $_SESSION['user_id'] ?? null;
 
@@ -28,7 +28,7 @@ $pastBookings = $pastStmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Bookings</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to your CSS file -->
+    <link rel="stylesheet" href="styles.css"> 
     <style>
         body {
             font-family: 'Arial', sans-serif;

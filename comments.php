@@ -1,7 +1,6 @@
 <?php
-require 'database.php'; // Ensure this connects to your database
 
-$roomId = 1; // Example room ID to fetch comments for
+$roomId = 1; 
 $sql = "SELECT c.*, u.name 
         FROM comments c 
         JOIN users u ON c.user_id = u.id 

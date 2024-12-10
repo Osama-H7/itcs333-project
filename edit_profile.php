@@ -2,7 +2,6 @@
 session_start();
 require 'database.php';
 
-// Ensure the user ID is set in the session
 if (!isset($_SESSION['user_id'])) {
     echo "User is not logged in.";
     exit();
@@ -14,18 +13,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update'])) {
     $phone = trim($_POST['phone']);
     $bio = trim($_POST['bio']);
 
-    // Validate email format
+
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = "Invalid email format.";
     } else {
-        // Update user profile in the database
+
         $stmt = $pdo->prepare("UPDATE users SET email = ?, username = ?, phone = ?, bio = ? WHERE id = ?");
         $stmt->execute([$email, $username, $phone, $bio, $_SESSION['user_id']]);
         $success = "Profile updated successfully.";
     }
 }
 
-// Fetch user data
+
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $user = $stmt->fetch();
@@ -35,7 +34,7 @@ if (!$user) {
     exit();
 }
 
-// Use fallback values to avoid "undefined array key" warnings
+
 $username = isset($user['username']) ? htmlspecialchars($user['username']) : '';
 $email = htmlspecialchars($user['email']);
 $phone = isset($user['phone']) ? htmlspecialchars($user['phone']) : '';

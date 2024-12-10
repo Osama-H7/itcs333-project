@@ -2,13 +2,13 @@
 session_start();
 require 'database.php';
 
-// Ensure the user ID is set in the session
+
 if (!isset($_SESSION['user_id'])) {
     echo "User is not logged in.";
     exit();
 }
 
-// Fetch user data
+
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
 $user = $stmt->fetch();
@@ -18,7 +18,7 @@ if (!$user) {
     exit();
 }
 
-// Get the profile picture path
+
 $image_path = isset($user['profile_picture']) ? htmlspecialchars($user['profile_picture']) : 'uploads/default-profile.png';
 ?>
 
@@ -32,13 +32,13 @@ $image_path = isset($user['profile_picture']) ? htmlspecialchars($user['profile_
     <style>
         body {
             background-color: #f0f4f8; /* Soft light gray */
-            color: #343a40; /* Dark text for better contrast */
+            color: #343a40;
         }
         .profile-container {
             max-width: 600px;
             margin: 50px auto;
             padding: 20px;
-            background: #ffffff; /* White background for the profile card */
+            background: #ffffff;
             border-radius: 10px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
@@ -48,12 +48,12 @@ $image_path = isset($user['profile_picture']) ? htmlspecialchars($user['profile_
             border-radius: 50%;
             object-fit: cover;
             margin-bottom: 20px;
-            border: 3px solid #007bff; /* Light blue border */
+            border: 3px solid #007bff; 
         }
         .profile-heading {
             text-align: center;
             margin-bottom: 20px;
-            color: #007bff; /* Blue color for the heading */
+            color: #007bff; 
         }
         .profile-info {
             margin-bottom: 15px;
@@ -61,26 +61,26 @@ $image_path = isset($user['profile_picture']) ? htmlspecialchars($user['profile_
         }
         .btn-custom {
             width: 100%;
-            margin: 10px 0; /* Margin between buttons */
+            margin: 10px 0; 
             padding: 10px;
             font-size: 16px;
         }
         .btn-primary {
-            background: #007bff; /* Primary button color */
+            background: #007bff;   
             border: none;
         }
         .btn-secondary {
-            background: #6c757d; /* Secondary button color */
+            background: #6c757d; 
             border: none;
         }
         .btn-success {
-            background: #28a745; /* Success button color */
+            background: #28a745; 
             border: none;
         }
         .btn-primary:hover,
         .btn-secondary:hover,
         .btn-success:hover {
-            opacity: 0.8; /* Slight opacity on hover */
+            opacity: 0.8; 
         }
     </style>
 </head>

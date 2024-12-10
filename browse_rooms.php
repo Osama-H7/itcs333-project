@@ -2,18 +2,18 @@
 session_start();
 require 'database.php';
 
-// Enable error reporting
+
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Fetch all rooms from the database
+
 $sql = "SELECT id, name, capacity, features, status FROM rooms";
 try {
     $stmt = $pdo->query($sql);
     $rooms = $stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Query failed: " . $e->getMessage();
-    exit; // Stop further execution
+    exit;
 }
 ?>
 
